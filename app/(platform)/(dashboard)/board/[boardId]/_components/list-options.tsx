@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { useAction } from "@/hooks/use-action";
 import { Button } from "@/components/ui/button";
+import { copyList } from "@/actions/copy-list";
 import { deleteList } from "@/actions/delete-list";
 import { FormSubmit } from "@/components/form/form-submit";
 import { Separator } from "@/components/ui/separator";
@@ -35,6 +36,16 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         },
     });
 
+    const { execute: executeCopy } = useAction(copyList, {
+        onSuccess: (data) => {
+            toast.success(`List "${data.title}" copied`);
+            closeRef.current?.click();
+        },
+        onError: (error) => {
+            toast.error(error);
+        },
+    });
+
     const onDelete = (formData: FormData) => {
         const id = formData.get("id") as string;
         const boardId = formData.get("boardId") as string;
@@ -46,7 +57,7 @@ export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         const id = formData.get("id") as string;
         const boardId = formData.get("boardId") as string;
 
-        console.log("Copy list");
+        executeCopy({ id, boardId });
     };
 
     return (
