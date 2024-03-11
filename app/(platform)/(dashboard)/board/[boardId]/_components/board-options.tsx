@@ -11,14 +11,20 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import { deleteBoard } from "@/actions/delete-board";
 
 interface BoardOptionsProps {
     id: string;
 }
 
 export const BoardOptions = ({ id }: BoardOptionsProps) => {
+    const { execute, isLoading } = useAction(deleteBoard, {
+        onError: (error) => {
+            toast.error(error);
+        },
+    });
     const onDelete = () => {
-        console.log("delete");
+        execute({ id });
     };
 
     return (
@@ -47,6 +53,7 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
                 <Button
                     variant="ghost"
                     onClick={onDelete}
+                    disabled={isLoading}
                     className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
                 >
                     Delete this board
