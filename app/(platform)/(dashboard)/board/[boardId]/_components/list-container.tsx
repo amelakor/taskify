@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useAction } from "@/hooks/use-action";
 import { updateListOrder } from "@/actions/update-list-order";
+import { updateCardOrder } from "@/actions/update-card-order";
 import { ListWithCards } from "@/types";
 import { ListForm } from "./list-form";
 import { ListItem } from "./list-item";
@@ -27,6 +28,15 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
     const { execute: executeListOrder } = useAction(updateListOrder, {
         onSuccess: () => {
             toast.success("List reodered");
+        },
+        onError: (error) => {
+            toast.error(error);
+        },
+    });
+
+    const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+        onSuccess: () => {
+            toast.success("Card reordered");
         },
         onError: (error) => {
             toast.error(error);
@@ -101,6 +111,10 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
                 sourceList.cards = reorderedCards;
 
                 setOrderedData(newOrderedData);
+                executeUpdateCardOrder({
+                    boardId: boardId,
+                    items: reorderedCards,
+                });
             } else {
                 // different list
                 const [movedCard] = sourceList.cards.splice(source.index, 1);
@@ -118,6 +132,10 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
                 });
 
                 setOrderedData(newOrderedData);
+                executeUpdateCardOrder({
+                    boardId: boardId,
+                    items: destinationList.cards,
+                });
             }
         }
     };
