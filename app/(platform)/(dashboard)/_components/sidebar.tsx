@@ -29,6 +29,8 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
         },
     });
 
+    console.log({ userMemberships });
+
     const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
         (acc: string[], key: string) => {
             if (expanded[key]) {
@@ -84,7 +86,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
                 defaultValue={defaultAccordionValue}
                 className="space-y-2"
             >
-                {/* {userMemberships.data.map(({ organization }) => (
+                {userMemberships?.data?.map(({ organization }) => (
                     <NavItem
                         key={organization.id}
                         isActive={activeOrganization?.id === organization.id}
@@ -92,7 +94,7 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
                         organization={organization as Organization}
                         onExpand={onExpand}
                     />
-                ))} */}
+                ))}
             </Accordion>
         </>
     );
