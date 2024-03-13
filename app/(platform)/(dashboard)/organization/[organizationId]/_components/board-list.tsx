@@ -7,6 +7,16 @@ import { db } from "@/lib/db";
 import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormPopover } from "@/components/form/form-popover";
+import winston from "winston";
+
+const logger = winston.createLogger({
+    level: "info",
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.File({ filename: "error.log", level: "error" }),
+        new winston.transports.File({ filename: "combined.log" }),
+    ],
+});
 
 export const BoardList = async () => {
     const { orgId } = auth();
@@ -23,6 +33,8 @@ export const BoardList = async () => {
             createdAt: "desc",
         },
     });
+
+    logger.info("This is a log message visible in production", boards);
 
     console.log(boards, "BOARDS");
 
@@ -44,7 +56,7 @@ export const BoardList = async () => {
                     >
                         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
                         <p className="relative font-semibold text-white">
-                            {board.title}
+                            {board?.title}
                         </p>
                     </Link>
                 ))}
