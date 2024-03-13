@@ -25,19 +25,19 @@ export const BoardList = async () => {
         return redirect("/select-org");
     }
 
-    const boards = await db.board.findMany({
-        where: {
-            orgId,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-    });
+    // const boards = await db.board.findMany({
+    //     where: {
+    //         orgId,
+    //     },
+    //     orderBy: {
+    //         createdAt: "desc",
+    //     },
+    // });
 
-    logger.info("This is a log message visible in production", boards);
-    logger.info("orgId", boards);
+    // logger.info("This is a log message visible in production", boards);
+    // logger.info("orgId", boards);
 
-    console.log(boards, "BOARDS");
+    // console.log(boards, "BOARDS");
 
     return (
         <div className="space-y-4">
