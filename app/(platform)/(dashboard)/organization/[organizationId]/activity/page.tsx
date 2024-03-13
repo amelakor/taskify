@@ -4,6 +4,8 @@ import { Separator } from "@/components/ui/separator";
 
 import { ActivityList } from "./_components/activity-list";
 
+export const revalidate = 0;
+
 const ActivityPage = async () => {
     return (
         <div className="w-full">
