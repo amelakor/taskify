@@ -24,6 +24,8 @@ export const BoardList = async () => {
         },
     });
 
+    console.log(boards, "BOARDS");
+
     return (
         <div className="space-y-4">
             <div className="flex items-center font-semibold text-lg text-neutral-700">
@@ -33,8 +35,8 @@ export const BoardList = async () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {boards?.map((board) => (
                     <Link
-                        key={board.id}
-                        href={`/board/${board.id}`}
+                        key={board?.id}
+                        href={`/board/${board?.id}`}
                         className="group relative aspect-video bg-no-repeat bg-center bg-cover bg-sky-700 rounded-sm h-full w-full p-2 overflow-hidden"
                         style={{
                             backgroundImage: `url(${board?.imageThumbUrl})`,
@@ -46,7 +48,7 @@ export const BoardList = async () => {
                         </p>
                     </Link>
                 ))}
-                <FormPopover sideOffset={10} side="right">
+                {/* <FormPopover sideOffset={10} side="right">
                     <div
                         role="button"
                         className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
@@ -62,7 +64,7 @@ export const BoardList = async () => {
                             <HelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />
                         </Hint>
                     </div>
-                </FormPopover>
+                </FormPopover> */}
             </div>
         </div>
     );
