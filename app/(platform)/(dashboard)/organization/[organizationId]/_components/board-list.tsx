@@ -25,19 +25,17 @@ export const BoardList = async () => {
         return redirect("/select-org");
     }
 
-    // const boards = await db.board.findMany({
-    //     where: {
-    //         orgId,
-    //     },
-    //     orderBy: {
-    //         createdAt: "desc",
-    //     },
-    // });
+    const boards = await db.board.findMany({
+        where: {
+            orgId,
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+    });
 
-    // logger.info("This is a log message visible in production", boards);
-    // logger.info("orgId", boards);
-
-    // console.log(boards, "BOARDS");
+    logger.info("This is a log message visible in production", boards);
+    logger.info("orgId", boards);
 
     return (
         <div className="space-y-4">
@@ -46,7 +44,7 @@ export const BoardList = async () => {
                 Your boards
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                {/* {boards &&
+                {boards &&
                     boards?.map((board) => (
                         <Link
                             key={board?.id}
@@ -61,8 +59,8 @@ export const BoardList = async () => {
                                 {board?.title}
                             </p>
                         </Link>
-                    ))} */}
-                {/* <FormPopover sideOffset={10} side="right">
+                    ))}
+                <FormPopover sideOffset={10} side="right">
                     <div
                         role="button"
                         className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
@@ -78,7 +76,7 @@ export const BoardList = async () => {
                             <HelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />
                         </Hint>
                     </div>
-                </FormPopover> */}
+                </FormPopover>
             </div>
         </div>
     );
